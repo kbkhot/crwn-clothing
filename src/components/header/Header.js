@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import './Header.scss';
 import {ReactComponent as Logo} from '../../assets/crwn.svg';
@@ -27,14 +28,25 @@ const Header = ({currentUser})=> {
                         SIGN OUT
                         </div>
                         ) : (
-                        <Link to='/signin' className='option'>SIGN IN</Link>
+                        
+                            <Link to='/signin' className='option'>SIGN IN</Link>
+                        
                         )
                     }
-                    
                 </div>
-
         </div>
     );
 }
 
-export default Header; 
+const mapStateToProps = state => ({
+        currentUser: state.user.currentUser
+    })
+
+// alternate syntax for mapStateToProps function using return  and {}. 
+// const mapStateToProps = state => {
+//     return {
+//         currentUser: state.user.currentUser
+//     }
+// }
+
+export default connect(mapStateToProps) (Header); 
