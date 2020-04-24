@@ -13,3 +13,8 @@ import cartActionTypes from './cartTypes';
 //          type: "TOGGLE_CART_HIDDEN"
 //      }
 //  }
+
+export const addItem =(item)=> ({
+    type: cartActionTypes.ADD_ITEMS,
+    payload: item
+});
