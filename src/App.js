@@ -1,14 +1,18 @@
 import React from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {createStructuredSelector} from 'reselect';
 
 import './App.css';
 import HomePage from './pages/homePage/HomePage';
 import ShopPage from './pages/shop/ShopPage';
 import Header from './components/header/Header';
 import SignInSignUpPage from './pages/signInSignUpPage/SignInSignUpPage';
+import CheckoutPage from './pages/checkout/CheckoutPage';
+
 import {auth, createUserProfileDocument} from './firebase/FirbaseUtils';
 import {setCurrentUser} from './redux/user/userAction';
+import { selectCurrentUser } from './redux/user/userSelector';
 
 
 class App extends React.Component {
@@ -48,6 +52,7 @@ this.unsubscribeFromAuth();
         <Switch>
           <Route path= '/' exact component={HomePage} />
           <Route path= '/shop' exact component={ShopPage} />
+          <Route path= '/checkout' exact component={CheckoutPage} />
           <Route path='/signin' exact render={()=> this.props.currentUser ? (<Redirect to="/"/>):(<SignInSignUpPage/>)} 
           />
           {/* Redirect is a component from react-router-dom. It will Redirect Route to mentioned path.
@@ -61,9 +66,13 @@ this.unsubscribeFromAuth();
   
 }
 
-const mapStateToProps= ({user}) => ({
-  currentUser: user.currentUser
+const mapStateToProps= createStructuredSelector ({
+  currentUser: selectCurrentUser
 });
+
+// const mapStateToProps= ({user}) => ({
+//   currentUser: user.currentUser
+// });
 
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user))
