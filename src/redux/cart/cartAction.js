@@ -18,3 +18,14 @@ export const addItem =(item)=> ({
     type: cartActionTypes.ADD_ITEMS,
     payload: item
 });
+// removes item from the checkout page usng X sign
+export const clearItemFromCart = item => ({
+    type: cartActionTypes.CLEAR_ITEM_FROM_CART,
+    payload:item
+});
+
+// remove item using the arrow at checkout page
+export const removeItem =(item) => ({
+    type: cartActionTypes.REMOVE_ITEM,
+    payload: item
+});
